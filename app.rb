@@ -5,6 +5,7 @@ require "pry-byebug"
 require_relative "./config/application.rb"
 require_relative "./docraptor.rb"
 
+set :public_folder, File.dirname(__FILE__) + '/public'
 set :root, File.expand_path("..", __dir__)
 set :views, proc { File.join(root, "app/views") }
 set :bind, '0.0.0.0'
@@ -14,7 +15,7 @@ after do
 end
 
 get '/' do
-  'Hello world!'
+  send_file File.join(settings.public_folder, 'index.html')
 end
 
 post '/create' do
